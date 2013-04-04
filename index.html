@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta charset="utf-8">
+    <title>off-canvas menu</title>
+    <style>
+      body { margin: 0; }
+      #content { padding: 10px; }
+      #menu { background-color: #ccc; }
+      #show-menu { text-align: right; }
+    </style>
+  </head>
+  <body>
+    <div id="content">
+      <div id="show-menu">show</div> 
+      <p>Artisan tousled fanny pack irony, literally you probably haven't heard of them retro yr small batch selfies. Pitchfork etsy narwhal banjo, 8-bit cosby sweater biodiesel church-key pour-over banh mi keffiyeh farm-to-table neutra cardigan helvetica. Mlkshk portland vice, meggings small batch hashtag before they sold out DIY butcher 90's deep v next level synth. Ethnic pitchfork tattooed, cardigan meggings banh mi american apparel. Occupy hashtag craft beer butcher, flexitarian scenester try-hard marfa lo-fi. Semiotics sriracha put a bird on it fingerstache, actually retro mustache church-key literally try-hard truffaut single-origin coffee whatever. 90's pour-over fap biodiesel.</p>
+      <p>Vice raw denim mlkshk mustache lo-fi. Cred quinoa actually neutra DIY, tousled art party kogi seitan whatever irony. Ennui PBR truffaut, street art whatever stumptown mixtape banh mi before they sold out authentic terry richardson intelligentsia art party. Flannel leggings intelligentsia, biodiesel kale chips irony sartorial quinoa thundercats. Farm-to-table hoodie trust fund viral, chambray sriracha tonx sustainable blog seitan. Lomo PBR ethnic, retro bicycle rights blue bottle keffiyeh williamsburg helvetica thundercats deep v sustainable fashion axe vice. Pork belly cosby sweater pug forage swag scenester.</p>
+    </div>
+    <div id="menu">
+      <ul>
+        <li><a href="http://www.matthewgifford.com">one</a></li>
+        <li>two</li>
+        <li>three</li>
+      </ul>
+    </div>
+    <script type='text/javascript' src='lib/jquery-1.9.1.min.js'></script>
+    <script type='text/javascript' src='lib/jquery.offcanvasmenu.js'></script>
+    <script>
+      var m = $.offCanvasMenu({
+        direction: "right",
+        trigger: "#show-menu"
+      });
+      m.on();
+    </script>
+  </body>
+</html>
