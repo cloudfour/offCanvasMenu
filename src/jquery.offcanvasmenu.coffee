@@ -57,7 +57,8 @@ $.offCanvasMenu = (options) ->
 
   on: () ->
     $("body").addClass "off-canvas-menu"
-    $(settings.trigger).on("click", () ->
+    $(settings.trigger).on("touchstart mousedown", (e) ->
+      e.preventDefault()
       height = Math.max $(settings.menu).height(), $("body").height(), $(window).height()
       $(".outer-wrapper, .inner-wrapper").css "height", height 
       if height > $(settings.menu).height()

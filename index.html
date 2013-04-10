@@ -8,6 +8,7 @@
       body { margin: 0; }
       #content { padding: 10px; }
       #menu { background-color: #ccc; }
+      #menu ul { margin: 0; }
       #show-menu { text-align: right; }
     </style>
   </head>
@@ -32,6 +33,10 @@
         trigger: "#show-menu"
       });
       m.on();
+
+      $("#menu").on("click", function() {
+        alert("click!");
+      });
     </script>
   </body>
 </html>
