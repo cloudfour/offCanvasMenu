@@ -68,4 +68,4 @@ $.offCanvasMenu = (options) ->
 
   off: () ->
     $("body").removeClass "off-canvas-menu"
-    $(settings.trigger).off "click"
+    $(settings.trigger).off "touchstart mousedown"
