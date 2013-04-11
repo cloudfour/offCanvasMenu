@@ -6,7 +6,13 @@ $.offCanvasMenu = (options) ->
     trigger: "#menu-trigger"
   settings = $.extend settings, options
 
+  head = $(document.head)
+  body = $("body")
+  trigger = $(settings.trigger)
+  menu = $(settings.menu)
+
   transformDistance = if settings.direction is "left" then "70%" else "-70%"
+  menuLeft = if settings.direction is "left" then "-70%" else "100%"
   transitionCSS = "<style>
     body.off-canvas-menu .outer-wrapper {
       overflow-x: hidden;
@@ -44,28 +50,35 @@ $.offCanvasMenu = (options) ->
       backface-visibility: hidden;
     }
     body.off-canvas-menu " + settings.menu + " {
-      left: " + if settings.direction is "left" then "-70%" else "100%" + ";
+      left: " + menuLeft + ";
       margin: 0;
       position: absolute;
       top: 0;
       width: 70%;
     }
   </style>"
-  $(document.head).append transitionCSS
-  $("body > *").wrapAll "<div class=\"outer-wrapper\" />"
+  head.append transitionCSS
+
+  body.children().wrapAll "<div class=\"outer-wrapper\" />"
   $(".outer-wrapper > *").wrapAll "<div class=\"inner-wrapper\" />"
 
   on: () ->
-    $("body").addClass "off-canvas-menu"
-    $(settings.trigger).on("touchstart mousedown", (e) ->
+    body.addClass "off-canvas-menu"
+    trigger.on("touchstart mousedown", (e) ->
       e.preventDefault()
-      height = Math.max $(settings.menu).height(), $("body").height(), $(window).height()
+      height = Math.max menu.height(), body.height(), $(window).height()
       $(".outer-wrapper, .inner-wrapper").css "height", height 
-      if height > $(settings.menu).height()
-        $(settings.menu).css "height", height 
-      $("body").toggleClass "menu-open"
+      if height > menu.height()
+        menu.css "height", height 
+      body.toggleClass "menu-open"
     )
 
   off: () ->
-    $("body").removeClass "off-canvas-menu"
-    $(settings.trigger).off "touchstart mousedown"
+    body.removeClass "off-canvas-menu"
+    trigger.off "touchstart mousedown"
+
+  show: () ->
+    body.addClass "menu-open"
+
+  hide: () ->
+    body.removeClass "menu-open"
