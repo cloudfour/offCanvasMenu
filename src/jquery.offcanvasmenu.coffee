@@ -57,7 +57,7 @@ $.offCanvasMenu = (options) ->
         actions.show()
 
     show: () ->
-      height = Math.max menu.height(), body.height(), $(window).height()
+      height = Math.max menu.height(), outerWrapper.height(), $(window).height()
       outerWrapper.add(innerWrapper).css "height", height 
       if height > menu.height()
         menu.css "height", height 
