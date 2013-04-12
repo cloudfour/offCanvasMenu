@@ -11,11 +11,17 @@ $.offCanvasMenu = (options) ->
   trigger = $(settings.trigger)
   menu = $(settings.menu)
 
-  transformDistance = if settings.direction is "left" then "70%" else "-70%"
+  transformPosition = if settings.direction is "left" then "70%" else "-70%"
   menuLeft = if settings.direction is "left" then "-70%" else "100%"
   transitionCSS = "<style>
     body.off-canvas-menu .outer-wrapper {
+      left: 0;
       overflow-x: hidden;
+      position: absolute;
+      top: 0;
+    }
+    body.off-canvas-menu .inner-wrapper {
+      position: relative;
     }
     body.off-canvas-menu " + settings.menu + " {
       left: " + menuLeft + ";
@@ -45,27 +51,30 @@ $.offCanvasMenu = (options) ->
       trigger.off "touchstart mousedown"
 
     toggle: () ->
-      if body.hasClass("menu-open") is false
-        actions.show()
-      else
+      if body.hasClass("menu-open") is true
         actions.hide()
+      else
+        actions.show()
 
     show: () ->
       height = Math.max menu.height(), body.height(), $(window).height()
-      outerWrapper.css "height", height 
-      innerWrapper.css "height", height 
+      outerWrapper.add(innerWrapper).css "height", height 
       if height > menu.height()
         menu.css "height", height 
-      innerWrapper.css
-        transition: "250ms ease"
-        transform: "translateX(" + transformDistance + ")"
+      actions.animate transformPosition
       body.addClass "menu-open"
 
     hide: () ->
-      innerWrapper.css
-        transition: "250ms ease"
-        transform: "translateX(0)"
+      actions.animate 0
       body.removeClass "menu-open"
+
+    animate: (position) ->
+      if Modernizr? and Modernizr.csstransforms and Modernizr.csstransitions
+        innerWrapper.css
+          transition: "250ms ease"
+          transform: "translateX(" + position + ")"
+      else
+        innerWrapper.animate({ left: position }, 250);
 
   on: actions.on
   off: actions.off
