@@ -72,6 +72,7 @@ $.offCanvasMenu = (options) ->
       body.removeClass "menu-open"
 
     animate: (position) ->
+      actions.pauseClicks()
       if cssSupport
         innerWrapper.css
           transition: transformPrefix + " " + settings.duration + "ms ease"
@@ -89,6 +90,12 @@ $.offCanvasMenu = (options) ->
 
     clearHeights: () ->
       outerWrapper.add(innerWrapper).add(menu).css "height", ""
+
+    pauseClicks: () ->
+      body.on "click", (e) ->
+        e.preventDefault()
+        e.stopPropagation()
+      setTimeout (() -> body.off "click"), settings.duration * 2
 
   on: actions.on
   off: actions.off
