@@ -8,8 +8,7 @@ $.offCanvasMenu = (options) ->
   settings = $.extend settings, options
 
   cssSupport = (Modernizr? and Modernizr.csstransforms and Modernizr.csstransitions)
-  if cssSupport
-    transformPrefix = Modernizr.prefixed('transform').replace(/([A-Z])/g, (str,m1) -> return '-' + m1.toLowerCase()).replace(/^ms-/,'-ms-')
+  transformPrefix = Modernizr.prefixed('transform').replace(/([A-Z])/g, (str,m1) -> return '-' + m1.toLowerCase()).replace(/^ms-/,'-ms-') if cssSupport
 
   head = $(document.head)
   body = $("body")
@@ -62,15 +61,14 @@ $.offCanvasMenu = (options) ->
         actions.show()
 
     show: () ->
-      height = Math.max menu.height(), outerWrapper.height(), $(window).height(), $(document).height()
-      outerWrapper.add(innerWrapper).css "height", height 
-      if height > menu.height()
-        menu.css "height", height 
+      actions.setHeights()
       actions.animate transformPosition
+      $(window).on "resize", actions.setHeights
       body.addClass "menu-open"
 
     hide: () ->
       actions.animate 0
+      $(window).off "resize"
       body.removeClass "menu-open"
 
     animate: (position) ->
@@ -78,12 +76,18 @@ $.offCanvasMenu = (options) ->
         innerWrapper.css
           transition: transformPrefix + " " + settings.duration + "ms ease"
           transform: "translateX(" + position + ")"
-        if !position then setTimeout actions.complete, settings.duration
+        if !position then setTimeout actions.clearHeights, settings.duration
       else
-        console.log "Hello world"
-        innerWrapper.animate({ left: position }, settings.duration, if !position then actions.complete else null)
+        innerWrapper.animate({ left: position }, settings.duration, if !position then actions.clearHeights else null)
 
-    complete: () ->
+    setHeights: () ->
+      actions.clearHeights()
+      height = Math.max $(window).height(), $(document).height()
+      outerWrapper.add(innerWrapper).css "height", height 
+      if height > menu.height()
+        menu.css "height", height
+
+    clearHeights: () ->
       outerWrapper.add(innerWrapper).add(menu).css "height", ""
 
   on: actions.on
