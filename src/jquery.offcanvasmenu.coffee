@@ -4,7 +4,12 @@ $.offCanvasMenu = (options) ->
     direction: "left"
     menu: "#menu"
     trigger: "#menu-trigger"
+    duration: 250
   settings = $.extend settings, options
+
+  cssSupport = (Modernizr? and Modernizr.csstransforms and Modernizr.csstransitions)
+  if cssSupport
+    transformPrefix = Modernizr.prefixed('transform').replace(/([A-Z])/g, (str,m1) -> return '-' + m1.toLowerCase()).replace(/^ms-/,'-ms-')
 
   head = $(document.head)
   body = $("body")
@@ -57,7 +62,7 @@ $.offCanvasMenu = (options) ->
         actions.show()
 
     show: () ->
-      height = Math.max menu.height(), outerWrapper.height(), $(window).height()
+      height = Math.max menu.height(), outerWrapper.height(), $(window).height(), $(document).height()
       outerWrapper.add(innerWrapper).css "height", height 
       if height > menu.height()
         menu.css "height", height 
@@ -69,12 +74,17 @@ $.offCanvasMenu = (options) ->
       body.removeClass "menu-open"
 
     animate: (position) ->
-      if Modernizr? and Modernizr.csstransforms and Modernizr.csstransitions
+      if cssSupport
         innerWrapper.css
-          transition: "250ms ease"
+          transition: transformPrefix + " " + settings.duration + "ms ease"
           transform: "translateX(" + position + ")"
+        if !position then setTimeout actions.complete, settings.duration
       else
-        innerWrapper.animate({ left: position }, 250);
+        console.log "Hello world"
+        innerWrapper.animate({ left: position }, settings.duration, if !position then actions.complete else null)
+
+    complete: () ->
+      outerWrapper.add(innerWrapper).add(menu).css "height", ""
 
   on: actions.on
   off: actions.off
