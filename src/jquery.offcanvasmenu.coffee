@@ -4,7 +4,11 @@ $.offCanvasMenu = (options) ->
     direction: "left"
     menu: "#menu"
     trigger: "#menu-trigger"
+    duration: 250
   settings = $.extend settings, options
+
+  cssSupport = (Modernizr? and Modernizr.csstransforms and Modernizr.csstransitions)
+  transformPrefix = Modernizr.prefixed('transform').replace(/([A-Z])/g, (str,m1) -> return '-' + m1.toLowerCase()).replace(/^ms-/,'-ms-') if cssSupport
 
   head = $(document.head)
   body = $("body")
@@ -43,6 +47,7 @@ $.offCanvasMenu = (options) ->
       body.addClass "off-canvas-menu"
       trigger.on "touchstart mousedown", (e) ->
         e.preventDefault()
+        actions.pauseClicks()
         actions.toggle()
 
     off: () ->
@@ -57,24 +62,40 @@ $.offCanvasMenu = (options) ->
         actions.show()
 
     show: () ->
-      height = Math.max menu.height(), outerWrapper.height(), $(window).height()
-      outerWrapper.add(innerWrapper).css "height", height 
-      if height > menu.height()
-        menu.css "height", height 
+      actions.setHeights()
       actions.animate transformPosition
+      $(window).on "resize", actions.setHeights
       body.addClass "menu-open"
 
     hide: () ->
       actions.animate 0
+      $(window).off "resize"
       body.removeClass "menu-open"
 
     animate: (position) ->
-      if Modernizr? and Modernizr.csstransforms and Modernizr.csstransitions
+      if cssSupport
         innerWrapper.css
-          transition: "250ms ease"
+          transition: transformPrefix + " " + settings.duration + "ms ease"
           transform: "translateX(" + position + ")"
+        if !position then setTimeout actions.clearHeights, settings.duration
       else
-        innerWrapper.animate({ left: position }, 250);
+        innerWrapper.animate({ left: position }, settings.duration, if !position then actions.clearHeights else null)
+
+    setHeights: () ->
+      actions.clearHeights()
+      height = Math.max $(window).height(), $(document).height()
+      outerWrapper.add(innerWrapper).css "height", height 
+      if height > menu.height()
+        menu.css "height", height
+
+    clearHeights: () ->
+      outerWrapper.add(innerWrapper).add(menu).css "height", ""
+
+    pauseClicks: () ->
+      body.on "click", (e) ->
+        e.preventDefault()
+        e.stopPropagation()
+      setTimeout (() -> body.off "click"), settings.duration * 2
 
   on: actions.on
   off: actions.off
