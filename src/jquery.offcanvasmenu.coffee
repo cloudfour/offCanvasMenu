@@ -47,6 +47,7 @@ $.offCanvasMenu = (options) ->
       body.addClass "off-canvas-menu"
       trigger.on "touchstart mousedown", (e) ->
         e.preventDefault()
+        actions.pauseClicks()
         actions.toggle()
 
     off: () ->
@@ -72,7 +73,6 @@ $.offCanvasMenu = (options) ->
       body.removeClass "menu-open"
 
     animate: (position) ->
-      actions.pauseClicks()
       if cssSupport
         innerWrapper.css
           transition: transformPrefix + " " + settings.duration + "ms ease"
