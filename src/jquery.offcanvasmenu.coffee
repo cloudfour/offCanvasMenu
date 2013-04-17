@@ -23,6 +23,7 @@ $.offCanvasMenu = (options) ->
       overflow-x: hidden;
       position: absolute;
       top: 0;
+      width: 100%;
     }
     body.off-canvas-menu .inner-wrapper {
       position: relative;
