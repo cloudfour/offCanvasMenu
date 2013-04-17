@@ -17,7 +17,7 @@ $.offCanvasMenu = (options) ->
 
   transformPosition = if settings.direction is "left" then "70%" else "-70%"
   menuLeft = if settings.direction is "left" then "-70%" else "100%"
-  transitionCSS = "<style>
+  baseCSS = "<style>
     body.off-canvas-menu .outer-wrapper {
       left: 0;
       overflow-x: hidden;
@@ -36,7 +36,7 @@ $.offCanvasMenu = (options) ->
       width: 70%;
     }
   </style>"
-  head.append transitionCSS
+  head.append baseCSS
 
   body.children().wrapAll "<div class=\"outer-wrapper\" />"
   outerWrapper = $(".outer-wrapper")
