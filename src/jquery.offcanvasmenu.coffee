@@ -12,6 +12,7 @@ $.offCanvasMenu = (options) ->
       inner    : 'inner-wrapper'
       outer    : 'outer-wrapper'
       container: 'off-canvas-menu'
+      open     : 'menu-open'
   settings = $.extend settings, options
 
   cssSupport = (Modernizr? and Modernizr.csstransforms and Modernizr.csstransitions)
@@ -69,7 +70,7 @@ $.offCanvasMenu = (options) ->
       trigger.off "touchstart mousedown"
 
     toggle: () ->
-      if body.hasClass("menu-open") is true
+      if body.hasClass(settings.classes.open) is true
         actions.hide()
       else
         actions.show()
@@ -78,12 +79,12 @@ $.offCanvasMenu = (options) ->
       actions.setHeights()
       actions.animate transformPosition
       $(window).on "resize", actions.setHeights
-      body.addClass "menu-open"
+      body.addClass settings.classes.open
 
     hide: () ->
       actions.animate 0
       $(window).off "resize"
-      body.removeClass "menu-open"
+      body.removeClass settings.class.open
 
     animate: (position) ->
       if cssSupport
