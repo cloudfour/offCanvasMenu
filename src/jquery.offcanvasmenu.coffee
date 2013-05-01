@@ -20,7 +20,7 @@ $.offCanvasMenu = (options) ->
   transformPrefix = Modernizr.prefixed('transform').replace(/([A-Z])/g, (str,m1) -> return '-' + m1.toLowerCase()).replace(/^ms-/,'-ms-') if cssSupport
 
   head    = $(document.head)
-  body    = $("body")
+  body    = $(settings.container)
   trigger = $(settings.trigger)
   menu    = $(settings.menu)
 
@@ -84,7 +84,7 @@ $.offCanvasMenu = (options) ->
     hide: () ->
       actions.animate 0
       $(window).off "resize"
-      body.removeClass settings.class.open
+      body.removeClass settings.classes.open
 
     animate: (position) ->
       if cssSupport
