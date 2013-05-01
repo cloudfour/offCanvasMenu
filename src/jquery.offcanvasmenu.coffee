@@ -2,21 +2,24 @@ $ = jQuery
 $.offCanvasMenu = (options) ->
   settings =
     direction: "left"
-    menu: "#menu"
-    trigger: "#menu-trigger"
-    duration: 250
+    menu     : "#menu"
+    trigger  : "#menu-trigger"
+    duration : 250
+    coverage : "70%"    # Treated as string (units should be included)
+
   settings = $.extend settings, options
 
   cssSupport = (Modernizr? and Modernizr.csstransforms and Modernizr.csstransitions)
+  # This slightly-fragile hack is to get certain Androids to play well
   transformPrefix = Modernizr.prefixed('transform').replace(/([A-Z])/g, (str,m1) -> return '-' + m1.toLowerCase()).replace(/^ms-/,'-ms-') if cssSupport
 
-  head = $(document.head)
-  body = $("body")
+  head    = $(document.head)
+  body    = $("body")
   trigger = $(settings.trigger)
-  menu = $(settings.menu)
+  menu    = $(settings.menu)
 
-  transformPosition = if settings.direction is "left" then "70%" else "-70%"
-  menuLeft = if settings.direction is "left" then "-70%" else "100%"
+  transformPosition = if settings.direction is "left" then settings.coverage else "-" + settings.coverage
+  menuLeft          = if settings.direction is "left" then "-" + settings.coverage else "100%"
   baseCSS = "<style>
     body.off-canvas-menu .outer-wrapper {
       left: 0;
@@ -33,7 +36,7 @@ $.offCanvasMenu = (options) ->
       margin: 0;
       position: absolute;
       top: 0;
-      width: 70%;
+      width: " + settings.coverage + ";
     }
   </style>"
   head.append baseCSS
@@ -78,6 +81,7 @@ $.offCanvasMenu = (options) ->
         innerWrapper.css
           transition: transformPrefix + " " + settings.duration + "ms ease"
           transform: "translateX(" + position + ")"
+        # TODO: This would be better addressed by listening for the [vendor]transitionend event
         if !position then setTimeout actions.clearHeights, settings.duration
       else
         innerWrapper.animate({ left: position }, settings.duration, if !position then actions.clearHeights else null)
@@ -98,8 +102,8 @@ $.offCanvasMenu = (options) ->
         e.stopPropagation()
       setTimeout (() -> body.off "click"), settings.duration * 2
 
-  on: actions.on
-  off: actions.off
+  on    : actions.on
+  off   : actions.off
   toggle: actions.toggle
-  show: actions.show
-  hide: actions.hide
+  show  : actions.show
+  hide  : actions.hide
