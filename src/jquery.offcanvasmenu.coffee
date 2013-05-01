@@ -6,7 +6,12 @@ $.offCanvasMenu = (options) ->
     trigger  : "#menu-trigger"
     duration : 250
     coverage : "70%"    # Treated as string (units should be included)
-
+    # Settings after this are here for conflict avoidance but shouldn't need to be tweaked
+    container: 'body'
+    classes:
+      inner    : 'inner-wrapper'
+      outer    : 'outer-wrapper'
+      container: 'off-canvas-menu'
   settings = $.extend settings, options
 
   cssSupport = (Modernizr? and Modernizr.csstransforms and Modernizr.csstransitions)
@@ -20,42 +25,46 @@ $.offCanvasMenu = (options) ->
 
   transformPosition = if settings.direction is "left" then settings.coverage else "-" + settings.coverage
   menuLeft          = if settings.direction is "left" then "-" + settings.coverage else "100%"
+  container         = settings.container + "." + settings.classes.container
+  inner             = container + " ." + settings.classes.inner
+  outer             = container + " ." + settings.classes.outer
+
   baseCSS = "<style>
-    body.off-canvas-menu .outer-wrapper {
+  " + outer + " {
       left: 0;
       overflow-x: hidden;
       position: absolute;
       top: 0;
       width: 100%;
     }
-    body.off-canvas-menu .inner-wrapper {
+    " + inner + " {
       position: relative;
     }
-    body.off-canvas-menu " + settings.menu + " {
-      left: " + menuLeft + ";
-      margin: 0;
+    " + container + " " + settings.menu + " {
+      left    : " + menuLeft + ";
+      margin  : 0;
       position: absolute;
-      top: 0;
-      width: " + settings.coverage + ";
+      top     : 0;
+      width   : " + settings.coverage + ";
     }
   </style>"
   head.append baseCSS
 
-  body.children().wrapAll "<div class=\"outer-wrapper\" />"
-  outerWrapper = $(".outer-wrapper")
-  outerWrapper.children().wrapAll "<div class=\"inner-wrapper\" />"
-  innerWrapper = $(".inner-wrapper")
+  body.children().wrapAll '<div class="' + settings.classes.outer + '"/>'
+  outerWrapper = $("." + settings.classes.outer)
+  outerWrapper.children().wrapAll '<div class="' + settings.classes.inner + '"/>'
+  innerWrapper = $("." + settings.classes.inner)
 
   actions =
     on: () ->
-      body.addClass "off-canvas-menu"
+      body.addClass settings.classes.container
       trigger.on "touchstart mousedown", (e) ->
         e.preventDefault()
         actions.pauseClicks()
         actions.toggle()
 
     off: () ->
-      body.removeClass "off-canvas-menu"
+      body.removeClass settings.classes.container
       actions.hide()
       trigger.off "touchstart mousedown"
 
