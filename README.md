@@ -63,7 +63,7 @@ You can check out our [Modernizr build details](http://modernizr.com/download/#-
 
 For the most part, you'll want to leave these alone; they're there in case you run into namespace conflicts in CSS or other deeper issues. 
 
-* `duration`: 
+* `duration`: The time the animation should take to complete in milliseconds.
 * `container`: Nominally it should be possible to use a different container element other than the `body` element that is the default. But we haven't tried it!
 * `classes` : The class names that get assigned to different elements needed to make the menu work. You can change these if you have a conflict or other burning desire for change.
 
