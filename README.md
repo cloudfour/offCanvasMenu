@@ -20,7 +20,7 @@ Our example comes with jQuery 2.0.0.
 
 For CSS animations (Super swank! So much prettier!), you'll need Modernizr. Our example comes with a custom build that only contains the tests needed.
 
-    <script type='text/javascript' src='lib/modernizr.custom.99278.js'></script>
+    <script type='text/javascript' src='lib/modernizr.custom.js'></script>
 
 You can check out our [Modernizr build details](http://modernizr.com/download/#-csstransforms-csstransitions-addtest-prefixed-teststyles-testprop-testallprops-hasevent-prefixes-domprefixes).
 
