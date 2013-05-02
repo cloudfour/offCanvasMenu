@@ -1,8 +1,8 @@
-$ = jQuery
+$ = if jQuery? then jQuery else Zepto
 $.offCanvasMenu = (options) ->
   settings =
     direction: "left"
-    coverage : "70%"    # Treated as string (units should be included)
+    coverage : "200px"    # Treated as string (units should be included)
     menu     : "#menu"
     trigger  : "#menu-trigger"
     duration : 250
@@ -21,9 +21,9 @@ $.offCanvasMenu = (options) ->
       'transition'       : 'transitionend'
   settings = $.extend settings, options
 
-  # If Modernizr is available, detect if CSS support is available
-  cssSupport = (Modernizr? and Modernizr.csstransforms and Modernizr.csstransitions)
-  # If so, determine some vendor-specific property and event names
+  # If we're using jQuery and Modernizr is available, detect CSS support
+  cssSupport = (!Zepto? and Modernizr? and Modernizr.csstransforms and Modernizr.csstransitions)
+  # If CSS is supported, determine vendor-specific prefix and event names
   if cssSupport
     transformPrefix = Modernizr.prefixed('transform').replace(/([A-Z])/g, (str,m1) -> return '-' + m1.toLowerCase()).replace(/^ms-/,'-ms-')
     # Get the transition end event based on the transition prefix property
@@ -61,9 +61,10 @@ $.offCanvasMenu = (options) ->
   </style>"
   head.append baseCSS
 
-  body.children().wrapAll '<div class="' + settings.classes.outer + '"/>'
+  # Excluding scripts solves Zepto bug with wrapAll/wrapInner on body
+  body.children(':not(script)').wrapAll '<div class="' + settings.classes.outer + '"/>'
   outerWrapper = $("." + settings.classes.outer)
-  outerWrapper.children().wrapAll '<div class="' + settings.classes.inner + '"/>'
+  outerWrapper.wrapInner '<div class="' + settings.classes.inner + '"/>'
   innerWrapper = $("." + settings.classes.inner)
 
   actions =
@@ -71,8 +72,7 @@ $.offCanvasMenu = (options) ->
       body.addClass settings.classes.container
       trigger.on "touchstart mousedown", (e) ->
         e.preventDefault()
-        # Android browser 4.2.x fix
-        actions.pauseClicks() if cssSupport
+        actions.pauseClicks() if (cssSupport || Zepto?)
         actions.toggle()
 
     off: () ->
@@ -98,7 +98,10 @@ $.offCanvasMenu = (options) ->
       body.removeClass settings.classes.open
 
     animate: (position) ->
-      if cssSupport
+      animationCallback = actions.clearHeights if !position
+      if Zepto?
+        innerWrapper.animate "translateX": position, settings.duration, "ease", animationCallback
+      else if cssSupport
         innerWrapper.css
           transition: transformPrefix + " " + settings.duration + "ms ease"
           transform: "translateX(" + position + ")"
@@ -106,11 +109,12 @@ $.offCanvasMenu = (options) ->
           actions.clearHeights()
           innerWrapper.off transEndEventName
       else
-        innerWrapper.animate({ left: position }, settings.duration, if !position then actions.clearHeights else null)
+        innerWrapper.animate left: position, settings.duration, animationCallback
 
     setHeights: () ->
       actions.clearHeights()
-      height = Math.max $(window).height(), $(document).height()
+      # scrollHeight is to account for Zepto/jQuery inconsistencies
+      height = Math.max $(window).height(), $(document).height(), body.prop('scrollHeight')
       outerWrapper.add(innerWrapper).css "height", height
       if height > menu.height()
         menu.css "height", height
@@ -118,6 +122,7 @@ $.offCanvasMenu = (options) ->
     clearHeights: () ->
       outerWrapper.add(innerWrapper).add(menu).css "height", ""
 
+    # Briefly blocks click events from firing (Android 4.2.x bug)
     pauseClicks: () ->
       body.on "click", (e) ->
         e.preventDefault()

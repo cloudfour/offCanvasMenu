@@ -1,8 +1,6 @@
 # offCanvasMenu
 
-## What is it?
-
-**offCanvasMenu** is a jQuery plugin that provides an easy way to implement an off-canvas toggling menu, a navigation metaphor made popular by mobile applications. 
+**offCanvasMenu** is a jQuery/Zepto plugin that provides an easy way to implement an off-canvas toggling menu, a navigation metaphor made popular by mobile applications.
 
 When activated by a tap or a click, offCanvasMenu "slides" the menu element into view, "pushing" other content to the side.
 
@@ -10,15 +8,19 @@ When activated by a tap or a click, offCanvasMenu "slides" the menu element into
 
 ## Setup
 
-### 1. Include jQuery
+### 1. Include jQuery (or Zepto)
 
 Our example comes with jQuery 2.0.0.
 
     <script type='text/javascript' src='lib/jquery-2.0.0.min.js'></script>
 
+If you'd prefer, you can use [Zepto](http://zeptojs.com/) instead.
+
+    <script type='text/javascript' src='lib/zepto-1.0.min.js'></script>
+
 ### 2. Include Modernizr (Optional)
 
-For CSS animations (Super swank! So much prettier!), you'll need Modernizr. Our example comes with a custom build that only contains the tests needed.
+If you're using jQuery but want CSS transitions (Super swank! So much prettier!), you'll need Modernizr. Our example comes with a custom build that only contains the tests needed.
 
     <script type='text/javascript' src='lib/modernizr.custom.js'></script>
 
@@ -29,7 +31,7 @@ You can check out our [Modernizr build details](http://modernizr.com/download/#-
 * `csstransforms`
 * `csstransitions`
 
-*Note*: Modernizr is optional. If you don't include it, the plugin will fall back to JS animations.
+*Note*: Modernizr is optional (and not at all necessary if you're using Zepto). If you don't include it, the plugin will fall back to JS animations.
 
 ### 3. Initialize your menu!
 
@@ -68,9 +70,15 @@ You can check out our [Modernizr build details](http://modernizr.com/download/#-
 
 ### Other options
 
-For the most part, you'll want to leave these alone; they're there in case you run into namespace conflicts in CSS or other deeper issues. 
+For the most part, you'll want to leave these alone; they're there in case you run into namespace conflicts in CSS or other deeper issues.
 
 * `duration`: The time the animation should take to complete in milliseconds.
 * `container`: Nominally it should be possible to use a different container element other than the `body` element that is the default. But we haven't tried it!
 * `classes` : The class names that get assigned to different elements needed to make the menu work. You can change these if you have a conflict or other burning desire for change.
 * `transEndEventNames`: When CSS transitions are used we attach some events to the `transitionend` callback, which can differ in name browser-to-browser. We use a method similar to [Modernizr](http://modernizr.com/docs/#prefixed) and [Twitter Bootstrap](https://github.com/twitter/bootstrap/blob/master/js/bootstrap-transition.js) for determining the event name, referencing the keys in this list.
+
+## Known Issues
+
+### Android animation bugs
+
+Some versions of the Android browser handle percentage transforms [rather strangely](http://css-tricks.com/forums/discussion/20269/transform-translate-percentages-and-android/p1). Specifying a non-percentage value for `coverage` should alleviate the issue.
