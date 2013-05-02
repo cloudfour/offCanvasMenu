@@ -2,10 +2,10 @@ $ = jQuery
 $.offCanvasMenu = (options) ->
   settings =
     direction: "left"
+    coverage : "70%"    # Treated as string (units should be included)
     menu     : "#menu"
     trigger  : "#menu-trigger"
     duration : 250
-    coverage : "70%"    # Treated as string (units should be included)
     # Settings after this are here for conflict avoidance but shouldn't need to be tweaked
     container: 'body'
     classes:
