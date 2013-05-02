@@ -13,11 +13,21 @@ $.offCanvasMenu = (options) ->
       outer    : 'outer-wrapper'
       container: 'off-canvas-menu'
       open     : 'menu-open'
+    transEndEventNames:
+      'WebkitTransition' : 'webkitTransitionEnd',
+      'MozTransition'    : 'transitionend',
+      'OTransition'      : 'oTransitionEnd otransitionend',
+      'msTransition'     : 'MSTransitionEnd',
+      'transition'       : 'transitionend'
   settings = $.extend settings, options
 
+  # If Modernizr is available, detect if CSS support is available
   cssSupport = (Modernizr? and Modernizr.csstransforms and Modernizr.csstransitions)
-  # This slightly-fragile hack is to get certain Androids to play well
-  transformPrefix = Modernizr.prefixed('transform').replace(/([A-Z])/g, (str,m1) -> return '-' + m1.toLowerCase()).replace(/^ms-/,'-ms-') if cssSupport
+  # If so, determine some vendor-specific property and event names
+  if cssSupport
+    transformPrefix = Modernizr.prefixed('transform').replace(/([A-Z])/g, (str,m1) -> return '-' + m1.toLowerCase()).replace(/^ms-/,'-ms-')
+    # Get the transition end event based on the transition prefix property
+    transEndEventName = settings.transEndEventNames[Modernizr.prefixed 'transition']
 
   head    = $(document.head)
   body    = $(settings.container)
@@ -61,7 +71,8 @@ $.offCanvasMenu = (options) ->
       body.addClass settings.classes.container
       trigger.on "touchstart mousedown", (e) ->
         e.preventDefault()
-        actions.pauseClicks()
+        # Android browser 4.2.x fix
+        actions.pauseClicks() if cssSupport
         actions.toggle()
 
     off: () ->
@@ -91,15 +102,16 @@ $.offCanvasMenu = (options) ->
         innerWrapper.css
           transition: transformPrefix + " " + settings.duration + "ms ease"
           transform: "translateX(" + position + ")"
-        # TODO: This would be better addressed by listening for the [vendor]transitionend event
-        if !position then setTimeout actions.clearHeights, settings.duration
+        if !position then innerWrapper.on transEndEventName, () ->
+          actions.clearHeights()
+          innerWrapper.off transEndEventName
       else
         innerWrapper.animate({ left: position }, settings.duration, if !position then actions.clearHeights else null)
 
     setHeights: () ->
       actions.clearHeights()
       height = Math.max $(window).height(), $(document).height()
-      outerWrapper.add(innerWrapper).css "height", height 
+      outerWrapper.add(innerWrapper).css "height", height
       if height > menu.height()
         menu.css "height", height
 
