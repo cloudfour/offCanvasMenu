@@ -49,6 +49,13 @@ You can check out our [Modernizr build details](http://modernizr.com/download/#-
         outer    : 'outer-wrapper',
         container: 'off-canvas-menu'
         open     : 'menu-open'
+      },
+      transEndEventNames: {
+        'WebkitTransition' : 'webkitTransitionEnd',
+        'MozTransition'    : 'transitionend',
+        'OTransition'      : 'oTransitionEnd otransitionend',
+        'msTransition'     : 'MSTransitionEnd',
+        'transition'       : 'transitionend'
       }
     });
 
@@ -66,4 +73,4 @@ For the most part, you'll want to leave these alone; they're there in case you r
 * `duration`: The time the animation should take to complete in milliseconds.
 * `container`: Nominally it should be possible to use a different container element other than the `body` element that is the default. But we haven't tried it!
 * `classes` : The class names that get assigned to different elements needed to make the menu work. You can change these if you have a conflict or other burning desire for change.
-
+* `transEndEventNames`: When CSS transitions are used we attach some events to the `transitionend` callback, which can differ in name browser-to-browser. We use a method similar to [Modernizr](http://modernizr.com/docs/#prefixed) and [Twitter Bootstrap](https://github.com/twitter/bootstrap/blob/master/js/bootstrap-transition.js) for determining the event name, referencing the keys in this list.
