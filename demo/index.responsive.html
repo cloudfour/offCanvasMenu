@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <title>offCanvasMenu Responsive Example</title>
+  <style>
+
+    /*
+     * Some basic styles for the body, header and paragraphs
+     */
+
+    body {
+      background-color: #f6f6f6;
+      color: #777;
+      font-family: sans-serif;
+      font-size: 100%;
+      line-height: 1.4em;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 1.5em;
+      margin: 0;
+      padding: 0;
+    }
+
+    p { margin: 0 0 1em 0; }
+
+    /*
+     * Consistent padding for the masthead and content
+     * containers and the menu links (yay, alignment!)
+     */
+
+    #masthead, #content, #menu a { padding: 1em; }
+
+    /*
+     * Masthead (contains h1 and menu trigger)
+     */
+
+    #masthead {
+      background-color: #fff;
+      border-bottom: 3px solid #e3e3e3;
+      color: #555;
+      position: relative;
+    }
+
+    /*
+     * Style the menu trigger and position it so it will be
+     * visible even when the menu is open
+     */
+
+    #menu-trigger {
+      background-color: #454545;
+      border-radius: 0.25em;
+      color: #fff;
+      font-size: 0.75em;
+      font-weight: bold;
+      line-height: 1em;
+      margin-top: -1em;
+      position: absolute;
+      right: 1em;
+      text-transform: uppercase;
+      top: 50%;
+    }
+    /* Before enhancement, #menu-trigger behaves as a jump link to
+       footer nav. Style link text. */
+    #menu-trigger a {
+      color: #fff;
+      display: block;
+      padding: 0.5em;
+      text-decoration: none;
+    }
+
+    /*
+     * Menu styles
+     */
+
+    #menu {
+      background-color: #444;
+      color: #fff;
+    }
+
+    #menu ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    /*
+     * Menu links are block so they'll occupy the full
+     * width (easier to tap)
+     */
+
+    #menu a {
+      border-bottom: 3px solid #333;
+      color: inherit;
+      display: block;
+      text-decoration: none;
+    }
+
+    /** Media queries! **/
+    @media screen and (min-width: 40em) {
+      #menu-trigger {
+        display : none;
+      }
+    }
+
+  </style>
+  <script src="../vendor/modernizr.custom.js"></script>
+</head>
+<body>
+
+<div id="masthead">
+  <h1>offCanvasMenu</h1>
+  <div id="menu-trigger"><a href="#menu">Menu</a></div>
+</div>
+
+<div id="content">
+  <p>Artisan tousled fanny pack irony, literally you probably haven't heard of them retro yr small batch selfies. Pitchfork etsy narwhal banjo, 8-bit cosby sweater biodiesel church-key pour-over banh mi keffiyeh farm-to-table neutra cardigan helvetica. Mlkshk portland vice, meggings small batch hashtag before they sold out DIY butcher 90's deep v next level synth. Ethnic pitchfork tattooed, cardigan meggings banh mi american apparel. Occupy hashtag craft beer butcher, flexitarian scenester try-hard marfa lo-fi. Semiotics sriracha put a bird on it fingerstache, actually retro mustache church-key literally try-hard truffaut single-origin coffee whatever. 90's pour-over fap biodiesel.</p>
+  <p>Vice raw denim mlkshk mustache lo-fi. Cred quinoa actually neutra DIY, tousled art party kogi seitan whatever irony. Ennui PBR truffaut, street art whatever stumptown mixtape banh mi before they sold out authentic terry richardson intelligentsia art party. Flannel leggings intelligentsia, biodiesel kale chips irony sartorial quinoa thundercats. Farm-to-table hoodie trust fund viral, chambray sriracha tonx sustainable blog seitan. Lomo PBR ethnic, retro bicycle rights blue bottle keffiyeh williamsburg helvetica thundercats deep v sustainable fashion axe vice. Pork belly cosby sweater pug forage swag scenester.</p>
+</div>
+
+<div id="menu">
+  <ul>
+    <li><a href="https://github.com/cloudfour/offCanvasMenu">GitHub Project</a></li>
+    <li><a href="http://cloudfour.com/">Cloud Four</a></li>
+    <li><a href="http://mobileportland.com/">Mobile Portland</a></li>
+  </ul>
+</div>
+
+<script src='../vendor/jquery-2.0.0.min.js'></script>
+<script src='../vendor/jquery.csswatch.js'></script>
+<!-- <script src='../vendor/zepto-1.0.min.js'></script> -->
+<script src='../lib/jquery.offcanvasmenu.js'></script>
+<script src='../lib/example.responsive.js'></script>
+
+</body>
+</html>
