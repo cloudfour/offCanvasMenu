@@ -87,6 +87,10 @@ $.offCanvasMenu = (options) ->
       body.removeClass settings.classes.container
       actions.hide()
       trigger.off "touchstart mousedown"
+      # Make sure we unbind transitionend events
+      innerWrapper.off transEndEventName if cssSupport
+      # Make sure heights are cleared (esp. important for responsive sites)
+      actions.clearHeights()
 
     toggle: () ->
       if body.hasClass(settings.classes.open) is true
@@ -123,7 +127,6 @@ $.offCanvasMenu = (options) ->
       actions.clearHeights()
       # scrollHeight is to account for Zepto/jQuery inconsistencies
       height = Math.max $(window).height(), $(document).height(), body.prop('scrollHeight')
-      # outerWrapper.add(innerWrapper).css "height", height
       outerWrapper.css "height", height
       innerWrapper.css "height", height if height > innerWrapper.height()
       menu.css "height", height if height > menu.height()
