@@ -29,7 +29,7 @@ $.offCanvasMenu = (options) ->
     # Get the transition end event based on the transition prefix property
     transEndEventName = settings.transEndEventNames[Modernizr.prefixed 'transition']
 
-  head    = $(document.head)
+  head    = $('head')
   body    = $(settings.container)
   trigger = $(settings.trigger)
   menu    = $(settings.menu)
