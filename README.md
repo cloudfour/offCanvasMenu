@@ -10,7 +10,7 @@ When activated by a tap or a click, offCanvasMenu "slides" the menu element into
 
 ### 1. Include jQuery (or Zepto)
 
-Our example comes with jQuery 2.0.0.
+Our example comes with jQuery 1.9.1 (but 2.0.0 should work as well).
 
     <script type='text/javascript' src='lib/jquery-2.0.0.min.js'></script>
 

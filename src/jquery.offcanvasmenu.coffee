@@ -52,8 +52,10 @@ $.offCanvasMenu = (options) ->
       position: relative;
     }
     " + container + " " + settings.menu + " {
+      height  : 0;
       left    : " + menuLeft + ";
       margin  : 0;
+      overflow: hidden;
       position: absolute;
       top     : 0;
       width   : " + settings.coverage + ";
@@ -115,9 +117,10 @@ $.offCanvasMenu = (options) ->
       actions.clearHeights()
       # scrollHeight is to account for Zepto/jQuery inconsistencies
       height = Math.max $(window).height(), $(document).height(), body.prop('scrollHeight')
-      outerWrapper.add(innerWrapper).css "height", height
-      if height > menu.height()
-        menu.css "height", height
+      # outerWrapper.add(innerWrapper).css "height", height
+      outerWrapper.css "height", height
+      innerWrapper.css "height", height if height > innerWrapper.height()
+      menu.css "height", height if height > menu.height()
 
     clearHeights: () ->
       outerWrapper.add(innerWrapper).add(menu).css "height", ""
