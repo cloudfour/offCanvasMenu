@@ -54,16 +54,22 @@
       background-color: #454545;
       border-radius: 0.25em;
       color: #fff;
-      cursor: pointer;
       font-size: 0.75em;
       font-weight: bold;
       line-height: 1em;
       margin-top: -1em;
-      padding: 0.5em;
       position: absolute;
       right: 1em;
       text-transform: uppercase;
       top: 50%;
+    }
+    /* Before enhancement, #menu-trigger behaves as a jump link to
+       footer nav. Style link text. */
+    #menu-trigger a {
+      color: #fff;
+      display: block;
+      padding: 0.5em;
+      text-decoration: none;
     }
 
     /*
@@ -94,13 +100,13 @@
     }
 
   </style>
-  <script src="../lib/modernizr.custom.js"></script>
+  <script src="../vendor/modernizr.custom.js"></script>
 </head>
 <body>
 
 <div id="masthead">
   <h1>offCanvasMenu</h1>
-  <div id="menu-trigger">Menu</div>
+  <div id="menu-trigger"><a href="#menu">Menu</a></div>
 </div>
 
 <div id="content">
@@ -117,15 +123,16 @@
   </ul>
 </div>
 
-<script src='../lib/jquery-1.9.1.min.js'></script>
-<!-- <script src='../lib/zepto-1.0.min.js'></script> -->
+<script src='../vendor/jquery-1.9.1.min.js'></script>
+<!-- <script src='../vendor/zepto-1.0.min.js'></script> -->
 <script src='../lib/jquery.offcanvasmenu.js'></script>
 <script>
 
   // Instantiate the offCanvasMenu
   var menu = $.offCanvasMenu({
     // The menu will animate from the right
-    direction: "right"
+    direction: "right",
+    coverage: '200px'
   });
 
   // Here we go!

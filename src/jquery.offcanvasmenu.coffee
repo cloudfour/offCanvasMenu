@@ -2,7 +2,7 @@ $ = if jQuery? then jQuery else Zepto
 $.offCanvasMenu = (options) ->
   settings =
     direction: "left"
-    coverage : "200px"    # Treated as string (units should be included)
+    coverage : "70%"    # Treated as string (units should be included)
     menu     : "#menu"
     trigger  : "#menu-trigger"
     duration : 250
@@ -71,6 +71,12 @@ $.offCanvasMenu = (options) ->
 
   actions =
     on: () ->
+      if window.location.hash == settings.menu
+        # On the off chance the menu is activated when the browser is
+        # pointing at the hash target for the menu element, we need
+        # to rectify that or the menu will not close properly. This is
+        # an uncommon state. LDG
+        window.location.hash = ''
       body.addClass settings.classes.container
       trigger.on "touchstart mousedown", (e) ->
         e.preventDefault()
