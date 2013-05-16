@@ -86,6 +86,7 @@ $.offCanvasMenu = (options) ->
         e.preventDefault()
         actions.pauseClicks() if (cssSupport || Zepto?)
         actions.toggle()
+      trigger.on "click", (e) -> e.preventDefault()
 
     off: () ->
       trigger.find("a").add(trigger).each ->
