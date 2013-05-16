@@ -86,7 +86,7 @@ $.offCanvasMenu = (options) ->
         e.preventDefault()
         actions.pauseClicks() if (cssSupport || Zepto?)
         actions.toggle()
-      trigger.on "click", (e) -> e.preventDefault()
+      .on "click", (e) -> e.preventDefault()
 
     off: () ->
       trigger.find("a").add(trigger).each ->
@@ -94,7 +94,7 @@ $.offCanvasMenu = (options) ->
         $(@).data "href", ""
       body.removeClass settings.classes.container
       actions.hide()
-      trigger.off "touchstart mousedown"
+      trigger.off "touchstart mousedown click"
       # Make sure we unbind transitionend events
       innerWrapper.off transEndEventName if cssSupport
       # Make sure heights are cleared (esp. important for responsive sites)

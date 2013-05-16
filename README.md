@@ -2,9 +2,7 @@
 
 **offCanvasMenu** is a jQuery/Zepto plugin that provides an easy way to implement an off-canvas toggling menu, a navigation metaphor made popular by mobile applications.
 
-When activated by a tap or a click, offCanvasMenu "slides" the menu element into view, "pushing" other content to the side.
-
-## Demo
+When activated, offCanvasMenu "slides" the menu element into view, "pushing" other content to the side.
 
 ## Setup
 
@@ -37,7 +35,7 @@ You can check out our [Modernizr build details](http://modernizr.com/download/#-
 
     $.offCanvasMenu();
 
-## Options
+#### Options
 
     $.offCanvasMenu({
       direction : 'left',
@@ -61,14 +59,14 @@ You can check out our [Modernizr build details](http://modernizr.com/download/#-
       }
     });
 
-### Options you may wish to change
+#### Options you may wish to change
 
 * `direction`: (string) Direction from which the menu enters the containing element. Valid values are `left` or `right`. Default `left`.
 * `coverage`: (string) Width (in CSS units) of the menu when it is open/active. Relative units are relative to the `container` element. In all but the most experimental cases this is the `body` element, which means this effectively translates to coverage of the visible viewport. `px` or other non-percentage units are OK, but you must include the unit. Default is `70%`. We haven't tested with much variation to that!
 * `trigger`: jQuery selector for the element that should trigger the show/hide of the menu. Default `#menu-trigger`.
 * `menu`: jQuery selector for the menu element itself. Default `#menu`.
 
-### Other options
+#### Other options
 
 For the most part, you'll want to leave these alone; they're there in case you run into namespace conflicts in CSS or other deeper issues.
 
@@ -77,8 +75,17 @@ For the most part, you'll want to leave these alone; they're there in case you r
 * `classes` : The class names that get assigned to different elements needed to make the menu work. You can change these if you have a conflict or other burning desire for change.
 * `transEndEventNames`: When CSS transitions are used we attach some events to the `transitionend` callback, which can differ in name browser-to-browser. We use a method similar to [Modernizr](http://modernizr.com/docs/#prefixed) and [Twitter Bootstrap](https://github.com/twitter/bootstrap/blob/master/js/bootstrap-transition.js) for determining the event name, referencing the keys in this list.
 
+### 4. Functions
+
+* `on()`: You'll usually run this function right after initializing the menu. It causes the menu to be moved off-canvas and enables toggle(), show(), and hide().
+* `off()`: This function causes the menu to move to its original position and disables toggle(), show(), and hide().
+* `toggle()`: Toggles the menu.
+* `show()`: Shows the menu.
+* `hide()`: Hides the menu.
+
 ## Known Issues
 
 ### Android animation bugs
 
 Some versions of the Android browser handle percentage transforms [rather strangely](http://css-tricks.com/forums/discussion/20269/transform-translate-percentages-and-android/p1). Specifying a non-percentage value for `coverage` should alleviate the issue.
+
