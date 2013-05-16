@@ -75,8 +75,12 @@ $.offCanvasMenu = (options) ->
         # On the off chance the menu is activated when the browser is
         # pointing at the hash target for the menu element, we need
         # to rectify that or the menu will not close properly. This is
-        # an uncommon state. LDG
+        # an uncommon state.
         window.location.hash = ''
+      # Remove the possibility of the trigger containing hrefs with hashes
+      trigger.find("a").add(trigger).each ->
+        $(@).data "href", $(@).attr("href")
+        $(@).attr "href", ""
       body.addClass settings.classes.container
       trigger.on "touchstart mousedown", (e) ->
         e.preventDefault()
@@ -84,6 +88,9 @@ $.offCanvasMenu = (options) ->
         actions.toggle()
 
     off: () ->
+      trigger.find("a").add(trigger).each ->
+        $(@).attr "href", $(@).data("href")
+        $(@).data "href", ""
       body.removeClass settings.classes.container
       actions.hide()
       trigger.off "touchstart mousedown"
