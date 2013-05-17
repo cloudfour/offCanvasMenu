@@ -92,8 +92,8 @@ $.offCanvasMenu = (options) ->
       trigger.find("a").add(trigger).each ->
         $(@).attr "href", $(@).data("href")
         $(@).data "href", ""
-      body.removeClass settings.classes.container
       actions.hide()
+      body.removeClass settings.classes.container
       trigger.off "touchstart mousedown click"
       # Make sure we unbind transitionend events
       innerWrapper.off transEndEventName if cssSupport
