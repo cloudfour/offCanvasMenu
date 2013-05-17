@@ -101,18 +101,21 @@ $.offCanvasMenu = (options) ->
       actions.clearHeights()
 
     toggle: () ->
+      unless $(container).length then return false
       if body.hasClass(settings.classes.open) is true
         actions.hide()
       else
         actions.show()
 
     show: () ->
+      unless $(container).length then return false
       actions.setHeights()
       actions.animate transformPosition
       $(window).on "resize", actions.setHeights
       body.addClass settings.classes.open
 
     hide: () ->
+      unless $(container).length then return false
       actions.animate 0
       $(window).off "resize"
       body.removeClass settings.classes.open
