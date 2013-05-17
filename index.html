@@ -118,96 +118,124 @@
 
 <div id="content">
 
-# offCanvasMenu
+<a name="offcanvasmenu" class="anchor" href="#offcanvasmenu"><span class="octicon octicon-link"></span></a>offCanvasMenu</h1>
 
-**offCanvasMenu** is a jQuery/Zepto plugin that provides an easy way to implement an off-canvas toggling menu, a navigation metaphor made popular by mobile applications.
+<p><strong>offCanvasMenu</strong> is a jQuery/Zepto plugin that provides an easy way to implement an off-canvas toggling menu, a navigation metaphor made popular by mobile applications.</p>
 
-When activated, offCanvasMenu "slides" the menu element into view, "pushing" other content to the side.
+<p>When activated, offCanvasMenu "slides" the menu element into view, "pushing" other content to the side.</p>
 
-## Setup
+<h2>
+<a name="setup" class="anchor" href="#setup"><span class="octicon octicon-link"></span></a>Setup</h2>
 
-### 1. Include jQuery (or Zepto)
+<h3>
+<a name="1-include-jquery-or-zepto" class="anchor" href="#1-include-jquery-or-zepto"><span class="octicon octicon-link"></span></a>1. Include jQuery (or Zepto)</h3>
 
-Our example comes with jQuery 1.9.1 (but 2.0.0 should work as well).
+<p>Our example comes with jQuery 1.9.1 (but 2.0.0 should work as well).</p>
 
-    <script type='text/javascript' src='lib/jquery-2.0.0.min.js'></script>
+<pre><code>&lt;script type='text/javascript' src='lib/jquery-2.0.0.min.js'&gt;&lt;/script&gt;
+</code></pre>
 
-If you'd prefer, you can use [Zepto](http://zeptojs.com/) instead.
+<p>If you'd prefer, you can use <a href="http://zeptojs.com/">Zepto</a> instead.</p>
 
-    <script type='text/javascript' src='lib/zepto-1.0.min.js'></script>
+<pre><code>&lt;script type='text/javascript' src='lib/zepto-1.0.min.js'&gt;&lt;/script&gt;
+</code></pre>
 
-### 2. Include Modernizr (Optional)
+<h3>
+<a name="2-include-modernizr-optional" class="anchor" href="#2-include-modernizr-optional"><span class="octicon octicon-link"></span></a>2. Include Modernizr (Optional)</h3>
 
-If you're using jQuery but want CSS transitions (Super swank! So much prettier!), you'll need Modernizr. Our example comes with a custom build that only contains the tests needed.
+<p>If you're using jQuery but want CSS transitions (Super swank! So much prettier!), you'll need Modernizr. Our example comes with a custom build that only contains the tests needed.</p>
 
-    <script type='text/javascript' src='lib/modernizr.custom.js'></script>
+<pre><code>&lt;script type='text/javascript' src='lib/modernizr.custom.js'&gt;&lt;/script&gt;
+</code></pre>
 
-You can check out our [Modernizr build details](http://modernizr.com/download/#-csstransforms-csstransitions-addtest-prefixed-teststyles-testprop-testallprops-hasevent-prefixes-domprefixes).
+<p>You can check out our <a href="http://modernizr.com/download/#-csstransforms-csstransitions-addtest-prefixed-teststyles-testprop-testallprops-hasevent-prefixes-domprefixes">Modernizr build details</a>.</p>
 
-**Needed tests** (if you want to add to an existing Modernizr build):
+<p><strong>Needed tests</strong> (if you want to add to an existing Modernizr build):</p>
 
-* `csstransforms`
-* `csstransitions`
+<ul>
+<li><code>csstransforms</code></li>
+<li><code>csstransitions</code></li>
+</ul><p><em>Note</em>: Modernizr is optional (and not at all necessary if you're using Zepto). If you don't include it, the plugin will fall back to JS animations.</p>
 
-*Note*: Modernizr is optional (and not at all necessary if you're using Zepto). If you don't include it, the plugin will fall back to JS animations.
+<h3>
+<a name="3-initialize-your-menu" class="anchor" href="#3-initialize-your-menu"><span class="octicon octicon-link"></span></a>3. Initialize your menu!</h3>
 
-### 3. Initialize your menu!
+<pre><code>$.offCanvasMenu();
+</code></pre>
 
-    $.offCanvasMenu();
+<h4>
+<a name="options" class="anchor" href="#options"><span class="octicon octicon-link"></span></a>Options</h4>
 
-#### Options
+<pre><code>$.offCanvasMenu({
+  direction : 'left',
+  coverage  : '70%',
+  trigger   : '#menu-trigger',
+  menu      : '#menu',
+  duration  : 250,
+  container : 'body',
+  classes   : {
+    inner    : 'inner-wrapper',
+    outer    : 'outer-wrapper',
+    container: 'off-canvas-menu'
+    open     : 'menu-open'
+  },
+  transEndEventNames: {
+    'WebkitTransition' : 'webkitTransitionEnd',
+    'MozTransition'    : 'transitionend',
+    'OTransition'      : 'oTransitionEnd otransitionend',
+    'msTransition'     : 'MSTransitionEnd',
+    'transition'       : 'transitionend'
+  }
+});
+</code></pre>
 
-    $.offCanvasMenu({
-      direction : 'left',
-      coverage  : '70%',
-      trigger   : '#menu-trigger',
-      menu      : '#menu',
-      duration  : 250,
-      container : 'body',
-      classes   : {
-        inner    : 'inner-wrapper',
-        outer    : 'outer-wrapper',
-        container: 'off-canvas-menu'
-        open     : 'menu-open'
-      },
-      transEndEventNames: {
-        'WebkitTransition' : 'webkitTransitionEnd',
-        'MozTransition'    : 'transitionend',
-        'OTransition'      : 'oTransitionEnd otransitionend',
-        'msTransition'     : 'MSTransitionEnd',
-        'transition'       : 'transitionend'
-      }
-    });
+<h4>
+<a name="options-you-may-wish-to-change" class="anchor" href="#options-you-may-wish-to-change"><span class="octicon octicon-link"></span></a>Options you may wish to change</h4>
 
-#### Options you may wish to change
+<ul>
+<li>
+<code>direction</code>: (string) Direction from which the menu enters the containing element. Valid values are <code>left</code> or <code>right</code>. Default <code>left</code>.</li>
+<li>
+<code>coverage</code>: (string) Width (in CSS units) of the menu when it is open/active. Relative units are relative to the <code>container</code> element. In all but the most experimental cases this is the <code>body</code> element, which means this effectively translates to coverage of the visible viewport. <code>px</code> or other non-percentage units are OK, but you must include the unit. Default is <code>70%</code>. We haven't tested with much variation to that!</li>
+<li>
+<code>trigger</code>: jQuery selector for the element that should trigger the show/hide of the menu. Default <code>#menu-trigger</code>.</li>
+<li>
+<code>menu</code>: jQuery selector for the menu element itself. Default <code>#menu</code>.</li>
+</ul><h4>
+<a name="other-options" class="anchor" href="#other-options"><span class="octicon octicon-link"></span></a>Other options</h4>
 
-* `direction`: (string) Direction from which the menu enters the containing element. Valid values are `left` or `right`. Default `left`.
-* `coverage`: (string) Width (in CSS units) of the menu when it is open/active. Relative units are relative to the `container` element. In all but the most experimental cases this is the `body` element, which means this effectively translates to coverage of the visible viewport. `px` or other non-percentage units are OK, but you must include the unit. Default is `70%`. We haven't tested with much variation to that!
-* `trigger`: jQuery selector for the element that should trigger the show/hide of the menu. Default `#menu-trigger`.
-* `menu`: jQuery selector for the menu element itself. Default `#menu`.
+<p>For the most part, you'll want to leave these alone; they're there in case you run into namespace conflicts in CSS or other deeper issues.</p>
 
-#### Other options
+<ul>
+<li>
+<code>duration</code>: The time the animation should take to complete in milliseconds.</li>
+<li>
+<code>container</code>: Nominally it should be possible to use a different container element other than the <code>body</code> element that is the default. But we haven't tried it!</li>
+<li>
+<code>classes</code> : The class names that get assigned to different elements needed to make the menu work. You can change these if you have a conflict or other burning desire for change.</li>
+<li>
+<code>transEndEventNames</code>: When CSS transitions are used we attach some events to the <code>transitionend</code> callback, which can differ in name browser-to-browser. We use a method similar to <a href="http://modernizr.com/docs/#prefixed">Modernizr</a> and <a href="https://github.com/twitter/bootstrap/blob/master/js/bootstrap-transition.js">Twitter Bootstrap</a> for determining the event name, referencing the keys in this list.</li>
+</ul><h3>
+<a name="4-functions" class="anchor" href="#4-functions"><span class="octicon octicon-link"></span></a>4. Functions</h3>
 
-For the most part, you'll want to leave these alone; they're there in case you run into namespace conflicts in CSS or other deeper issues.
+<ul>
+<li>
+<code>on()</code>: You'll usually run this function right after initializing the menu. It causes the menu to be moved off-canvas and enables toggle(), show(), and hide().</li>
+<li>
+<code>off()</code>: This function causes the menu to move to its original position and disables toggle(), show(), and hide().</li>
+<li>
+<code>toggle()</code>: Toggles the menu.</li>
+<li>
+<code>show()</code>: Shows the menu.</li>
+<li>
+<code>hide()</code>: Hides the menu.</li>
+</ul><h2>
+<a name="known-issues" class="anchor" href="#known-issues"><span class="octicon octicon-link"></span></a>Known Issues</h2>
 
-* `duration`: The time the animation should take to complete in milliseconds.
-* `container`: Nominally it should be possible to use a different container element other than the `body` element that is the default. But we haven't tried it!
-* `classes` : The class names that get assigned to different elements needed to make the menu work. You can change these if you have a conflict or other burning desire for change.
-* `transEndEventNames`: When CSS transitions are used we attach some events to the `transitionend` callback, which can differ in name browser-to-browser. We use a method similar to [Modernizr](http://modernizr.com/docs/#prefixed) and [Twitter Bootstrap](https://github.com/twitter/bootstrap/blob/master/js/bootstrap-transition.js) for determining the event name, referencing the keys in this list.
+<h3>
+<a name="android-animation-bugs" class="anchor" href="#android-animation-bugs"><span class="octicon octicon-link"></span></a>Android animation bugs</h3>
 
-### 4. Functions
-
-* `on()`: You'll usually run this function right after initializing the menu. It causes the menu to be moved off-canvas and enables toggle(), show(), and hide().
-* `off()`: This function causes the menu to move to its original position and disables toggle(), show(), and hide().
-* `toggle()`: Toggles the menu.
-* `show()`: Shows the menu.
-* `hide()`: Hides the menu.
-
-## Known Issues
-
-### Android animation bugs
-
-Some versions of the Android browser handle percentage transforms [rather strangely](http://css-tricks.com/forums/discussion/20269/transform-translate-percentages-and-android/p1). Specifying a non-percentage value for `coverage` should alleviate the issue.
+<p>Some versions of the Android browser handle percentage transforms <a href="http://css-tricks.com/forums/discussion/20269/transform-translate-percentages-and-android/p1">rather strangely</a>. Specifying a non-percentage value for <code>coverage</code> should alleviate the issue.</p>
 
 </div>
 
