@@ -31,7 +31,11 @@ You can check out our [Modernizr build details](http://modernizr.com/download/#-
 
 *Note*: Modernizr is optional (and not at all necessary if you're using Zepto). If you don't include it, the plugin will fall back to JS animations.
 
-### 3. Initialize your menu!
+### 3. Include the plugin
+
+    <script type='text/javascript' src='lib/jquery.offcanvasmenu.js'></script>
+
+### 4. Initialize your menu!
 
     $.offCanvasMenu();
 
@@ -75,7 +79,7 @@ For the most part, you'll want to leave these alone; they're there in case you r
 * `classes` : The class names that get assigned to different elements needed to make the menu work. You can change these if you have a conflict or other burning desire for change.
 * `transEndEventNames`: When CSS transitions are used we attach some events to the `transitionend` callback, which can differ in name browser-to-browser. We use a method similar to [Modernizr](http://modernizr.com/docs/#prefixed) and [Twitter Bootstrap](https://github.com/twitter/bootstrap/blob/master/js/bootstrap-transition.js) for determining the event name, referencing the keys in this list.
 
-### 4. Functions
+### 5. Functions
 
 * `on()`: You'll usually run this function right after initializing the menu. It causes the menu to be moved off-canvas and enables toggle(), show(), and hide().
 * `off()`: This function causes the menu to move to its original position and disables toggle(), show(), and hide().
