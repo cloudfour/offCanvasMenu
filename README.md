@@ -10,17 +10,17 @@ When activated, offCanvasMenu "slides" the menu element into view, "pushing" oth
 
 Our example comes with jQuery 1.9.1 (but 2.0.0 should work as well).
 
-    <script type='text/javascript' src='lib/jquery-2.0.0.min.js'></script>
+    <script src="lib/jquery-2.0.0.min.js"></script>
 
 If you'd prefer, you can use [Zepto](http://zeptojs.com/) instead.
 
-    <script type='text/javascript' src='lib/zepto-1.0.min.js'></script>
+    <script src="lib/zepto-1.0.min.js"></script>
 
 ### 2. Include Modernizr (Optional)
 
 If you're using jQuery but want CSS transitions (Super swank! So much prettier!), you'll need Modernizr. Our example comes with a custom build that only contains the tests needed.
 
-    <script type='text/javascript' src='lib/modernizr.custom.js'></script>
+    <script src="lib/modernizr.custom.js"></script>
 
 You can check out our [Modernizr build details](http://modernizr.com/download/#-csstransforms-csstransitions-addtest-prefixed-teststyles-testprop-testallprops-hasevent-prefixes-domprefixes).
 
@@ -33,7 +33,7 @@ You can check out our [Modernizr build details](http://modernizr.com/download/#-
 
 ### 3. Include the plugin
 
-    <script type='text/javascript' src='lib/jquery.offcanvasmenu.js'></script>
+    <script src="lib/jquery.offcanvasmenu.js"></script>
 
 ### 4. Initialize your menu!
 
