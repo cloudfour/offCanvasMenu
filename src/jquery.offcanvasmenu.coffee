@@ -52,6 +52,7 @@ $.offCanvasMenu = (options) ->
       position: relative;
     }
     " + container + " " + settings.menu + " {
+      display : block;
       height  : 0;
       left    : " + menuLeft + ";
       margin  : 0;
