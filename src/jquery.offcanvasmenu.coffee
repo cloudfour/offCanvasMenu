@@ -14,10 +14,10 @@ $.offCanvasMenu = (options) ->
       container: 'off-canvas-menu'
       open     : 'menu-open'
     transEndEventNames:
-      'WebkitTransition' : 'webkitTransitionEnd',
-      'MozTransition'    : 'transitionend',
-      'OTransition'      : 'oTransitionEnd otransitionend',
-      'msTransition'     : 'MSTransitionEnd',
+      'WebkitTransition' : 'webkitTransitionEnd'
+      'MozTransition'    : 'transitionend'
+      'OTransition'      : 'oTransitionEnd otransitionend'
+      'msTransition'     : 'MSTransitionEnd'
       'transition'       : 'transitionend'
   settings = $.extend settings, options
 
