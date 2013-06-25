@@ -50,6 +50,7 @@ $.offCanvasMenu = (options) ->
     }
     " + inner + " {
       position: relative;
+      -webkit-backface-visibility: hidden;
     }
     " + container + " " + settings.menu + " {
       display : block;
