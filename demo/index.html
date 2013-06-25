@@ -122,10 +122,14 @@
   </ul>
 </div>
 
+<script src='../vendor/fastclick.js'></script>
 <script src='../vendor/jquery-1.9.1.min.js'></script>
 <!-- <script src='../vendor/zepto-1.0.min.js'></script> -->
 <script src='../lib/jquery.offcanvasmenu.js'></script>
 <script>
+
+  // Speed up clicks on touchscreen devices
+  FastClick.attach(document.body);
 
   // Instantiate the offCanvasMenu
   var menu = $.offCanvasMenu({

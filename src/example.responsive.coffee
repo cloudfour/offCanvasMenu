@@ -18,6 +18,6 @@ jQuery ->
     props : 'display'
   .on 'css-change', (event, change) ->
     configureMenus change.display
-  
-  return
+
+  FastClick.attach document.body
   
