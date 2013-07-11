@@ -118,7 +118,7 @@ $.offCanvasMenu = (options) ->
     hide: () ->
       unless $(container).length then return false
       actions.animate 0
-      $(window).off "resize"
+      $(window).off "resize", actions.setHeights
       body.removeClass settings.classes.open
 
     animate: (position) ->
