@@ -126,9 +126,10 @@ $.offCanvasMenu = (options) ->
       if Zepto?
         innerWrapper.animate "translateX": position, settings.duration, "ease", animationCallback
       else if cssSupport
-        innerWrapper.css
+        innerWrapperCSS =
           transition: transformPrefix + " " + settings.duration + "ms ease"
-          transform: "translateX(" + position + ")"
+        innerWrapperCSS[transformPrefix] = "translateX(" + position + ")"
+        innerWrapper.css innerWrapperCSS
         if !position then innerWrapper.on transEndEventName, () ->
           actions.clearHeights()
           innerWrapper.off transEndEventName
