@@ -39,8 +39,8 @@ $.offCanvasMenu = (options) ->
   container         = settings.container + "." + settings.classes.container
   inner             = container + " ." + settings.classes.inner
   outer             = container + " ." + settings.classes.outer
-  outerWrapper = $({})
-  innerWrapper = $({})
+  outerWrapper      = $({})
+  innerWrapper      = $({})
 
   baseCSS = "<style>
   " + outer + " {
