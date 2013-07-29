@@ -39,6 +39,8 @@ $.offCanvasMenu = (options) ->
   container         = settings.container + "." + settings.classes.container
   inner             = container + " ." + settings.classes.inner
   outer             = container + " ." + settings.classes.outer
+  outerWrapper      = $({})
+  innerWrapper      = $({})
 
   baseCSS = "<style>
   " + outer + " {
@@ -64,14 +66,13 @@ $.offCanvasMenu = (options) ->
   </style>"
   head.append baseCSS
 
-  # Excluding scripts solves Zepto bug with wrapAll/wrapInner on body
-  body.children(':not(script)').wrapAll '<div class="' + settings.classes.outer + '"/>'
-  outerWrapper = $("." + settings.classes.outer)
-  outerWrapper.wrapInner '<div class="' + settings.classes.inner + '"/>'
-  innerWrapper = $("." + settings.classes.inner)
-
   actions =
     on: () ->
+      # Excluding scripts solves Zepto bug with wrapAll/wrapInner on body
+      body.children(':not(script)').wrapAll '<div class="' + settings.classes.outer + '"/>'
+      outerWrapper = $("." + settings.classes.outer)
+      outerWrapper.wrapInner '<div class="' + settings.classes.inner + '"/>'
+      innerWrapper = $("." + settings.classes.inner)
       if window.location.hash == settings.menu
         # On the off chance the menu is activated when the browser is
         # pointing at the hash target for the menu element, we need
@@ -99,6 +100,9 @@ $.offCanvasMenu = (options) ->
       innerWrapper.off transEndEventName if cssSupport
       # Make sure heights are cleared (esp. important for responsive sites)
       actions.clearHeights()
+      # Remove wrappers
+      innerWrapper.unwrap()
+      innerWrapper.children().unwrap()
 
     toggle: () ->
       unless $(container).length then return false
