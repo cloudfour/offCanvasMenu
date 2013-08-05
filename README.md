@@ -93,3 +93,14 @@ For the most part, you'll want to leave these alone; they're there in case you r
 
 Some versions of the Android browser handle percentage transforms [rather strangely](http://css-tricks.com/forums/discussion/20269/transform-translate-percentages-and-android/p1). Specifying a non-percentage value for `coverage` should alleviate the issue.
 
+## License
+
+Released under the [MIT License](http://www.opensource.org/licenses/MIT).
+
+This repository contains other libraries that may or may not fall under the same license:
+
+* [FastClick](https://github.com/ftlabs/fastclick)
+* [jQuery](https://github.com/jquery/jquery)
+* [jQuery csswatch](https://github.com/leifcr/jquery-csswatch/)
+* [Modernizr](https://github.com/Modernizr/Modernizr)
+* [Zepto](https://github.com/madrobby/zepto)
