@@ -6,6 +6,12 @@ $.offCanvasMenu = (options) ->
     menu     : "#menu"
     trigger  : "#menu-trigger"
     duration : 250
+
+    # When 'true', 3D transforms will be used. Can sometimes
+    # improve performance. 'true' by default if Modernizr and
+    # the 'csstransforms3d' test are included.
+    use3D: Modernizr? and Modernizr.csstransforms3d
+
     # Settings after this are here for conflict avoidance but shouldn't need to be tweaked
     container: 'body'
     classes:
@@ -41,6 +47,10 @@ $.offCanvasMenu = (options) ->
   outer             = container + " ." + settings.classes.outer
   outerWrapper      = $({})
   innerWrapper      = $({})
+  backfaceCss       = ""
+
+  if settings.use3D
+    backfaceCss =  "-webkit-backface-visibility: hidden;"
 
   baseCSS = "<style>
   " + outer + " {
@@ -51,10 +61,7 @@ $.offCanvasMenu = (options) ->
       width: 100%;
     }
     " + inner + " {
-      position: relative;
-      -webkit-backface-visibility: hidden;
-    }
-    " + container + " " + settings.menu + " {
+      position: relative; " + backfaceCss + "}" + container + " " + settings.menu + " {
       display : block;
       height: 0;
       left    : " + menuLeft + ";
