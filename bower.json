@@ -24,7 +24,6 @@
   
   "dependencies" : {
     "jquery": "~1.9.1",
-    "fastclick": "~0.6.7",
-    "underscore": "~1.5.1"
+    "fastclick": "~0.6.7"
   }
 }
