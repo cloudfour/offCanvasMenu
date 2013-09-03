@@ -1,0 +1,29 @@
+{
+  "name"        : "offCanvasMenu",
+  "description" : "A jQuery/Zepto plugin that provides an easy way to implement an off-canvas toggling menu, a navigation metaphor made popular by mobile applications.",
+  "url"         : "http://cloudfour.github.io/offCanvasMenu/",
+  "main"        : "./lib/jquery.offcanvasmenu.js",
+  "version"     : "1.1.0",
+
+  "keywords"     : [
+    "jquery",
+    "offcanvas",
+    "responsive",
+    "navigation"
+  ],
+
+  "author": {
+    "name"  : "CloudFour",
+    "email" : "info@cloudfour.com"
+  },
+
+  "ignore": [
+    "demo",
+    "vendor"
+  ],
+  
+  "dependencies" : {
+    "jquery": "~1.9.1",
+    "fastclick": "~0.6.7"
+  }
+}
