@@ -51,7 +51,7 @@ You can check out our [Modernizr build details](http://modernizr.com/download/#-
       classes   : {
         inner    : 'inner-wrapper',
         outer    : 'outer-wrapper',
-        container: 'off-canvas-menu'
+        container: 'off-canvas-menu',
         open     : 'menu-open'
       },
       transEndEventNames: {
